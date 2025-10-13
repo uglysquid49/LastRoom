@@ -3,23 +3,24 @@ using UnityEngine;
 
 public class InteractiveItem : MonoBehaviour, IInteractable
 {
-    public bool IsOpened {  get; private set; }
+    public bool IsOpened { get; private set; }
 
     public string PresentID { get; private set; }
-    public GameObject ItemPrefab;
+    public GameObject DialogueManager;
     public Sprite openedSprite;
     private bool isPlayerNear;
-
-    //start is called before the first frame update
+    public LayerMask interactableLayer;
 
     void Start()
     {
         PresentID ??= GlobalHelper.GenerateUniqueID(gameObject);
+      
     }
 
     public bool CanInteract()
     {
         return !IsOpened;
+        DialogueManager.SetActive(false);
     }
 
     public void Interact()
@@ -32,17 +33,13 @@ public class InteractiveItem : MonoBehaviour, IInteractable
     {
         // Instead of throwing an error, do something
         Debug.Log("Interacted with the object!");
-    }
+        SetOpened(true);
 
 
-    private void Opened()
-    {
-       SetOpened(true);
-
-        //DropItem
-        if (ItemPrefab)
+        if (DialogueManager)
         {
-            GameObject droppedIten = Instantiate(ItemPrefab, transform.position + Vector3.down, Quaternion.identity);
+            GameObject droppedItem = Instantiate(DialogueManager, transform.position + Vector3.down, Quaternion.identity);
+            
         }
     }
 
@@ -59,6 +56,7 @@ public class InteractiveItem : MonoBehaviour, IInteractable
         if (isPlayerNear && Input.GetKeyDown(KeyCode.E))
         {
             Interact();
+            DialogueManager.SetActive(true);
         }
     }
 
