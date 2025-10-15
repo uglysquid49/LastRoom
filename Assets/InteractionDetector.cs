@@ -30,7 +30,10 @@ public class PlayerInteraction : MonoBehaviour
         if (currentInteractable != null && Input.GetKeyDown(KeyCode.E))
         {
             currentInteractable.Interact();
+            uiManager.OnInteracted(); // this destroys the prompt
+            currentInteractable = null;
         }
+
     }
 
     private void OnDrawGizmosSelected()

@@ -1,62 +1,96 @@
 using System;
+using TMPro;
 using UnityEngine;
 
 public class InteractiveItem : MonoBehaviour, IInteractable
 {
     public bool IsOpened { get; private set; }
-
     public string PresentID { get; private set; }
-    public GameObject DialogueManager;
+
+    [Header("References")]
     public Sprite openedSprite;
-    private bool isPlayerNear;
+    public GameObject DialogueManager; // optional
     public LayerMask interactableLayer;
 
-    void Start()
+    [Header("UI Settings")]
+    [Tooltip("Assign your existing UI panel (the dialogue box in your Canvas).")]
+    public GameObject dialoguePanel;      // your existing UI panel
+    [Tooltip("Assign the TMP_Text component inside your dialogue panel.")]
+    public TMP_Text dialogueText;         // text field for dialogue
+    [TextArea]
+    public string dialogueMessage = "You found something interesting."; // text to display
+
+    private bool isDialogueActive = false;
+
+    private void Start()
     {
         PresentID ??= GlobalHelper.GenerateUniqueID(gameObject);
-      
+
+        // Make sure the UI starts hidden
+        if (dialoguePanel != null)
+            dialoguePanel.SetActive(false);
     }
 
     public bool CanInteract()
     {
         return !IsOpened;
-        DialogueManager.SetActive(false);
     }
 
     public void Interact()
     {
         if (!CanInteract()) return;
+
         OpenPresent();
+        ShowDialogue();
     }
 
-    void OpenPresent()
+    private void OpenPresent()
     {
-        // Instead of throwing an error, do something
         Debug.Log("Interacted with the object!");
         SetOpened(true);
+    }
 
-
-        if (DialogueManager)
+    private void ShowDialogue()
+    {
+        if (dialoguePanel == null)
         {
-            GameObject droppedItem = Instantiate(DialogueManager, transform.position + Vector3.down, Quaternion.identity);
-            
+            Debug.LogWarning("Assign your Dialogue Panel in the Inspector!");
+            return;
         }
+
+        dialoguePanel.SetActive(true);
+
+        if (dialogueText != null)
+            dialogueText.text = dialogueMessage;
+
+        isDialogueActive = true;
+        Debug.Log("Dialogue panel shown!");
+    }
+
+    private void Update()
+    {
+        // Close the dialogue by pressing E again
+        if (isDialogueActive && Input.GetKeyDown(KeyCode.E))
+        {
+            CloseDialogue();
+        }
+    }
+
+    private void CloseDialogue()
+    {
+        if (dialoguePanel != null)
+            dialoguePanel.SetActive(false);
+
+        isDialogueActive = false;
+        Debug.Log("Dialogue closed!");
     }
 
     public void SetOpened(bool opened)
     {
-        if (IsOpened = opened)
+        IsOpened = opened;
+        if (opened && openedSprite != null)
         {
             GetComponent<SpriteRenderer>().sprite = openedSprite;
-        }
-    }
-
-    void Update()
-    {
-        if (isPlayerNear && Input.GetKeyDown(KeyCode.E))
-        {
-            Interact();
-            DialogueManager.SetActive(true);
         }
     }
 

@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.UI;
 
 public class InteractUI : MonoBehaviour
 {
@@ -7,11 +6,24 @@ public class InteractUI : MonoBehaviour
 
     private void Start()
     {
-        promptUI.SetActive(false);
+        if (promptUI != null)
+            promptUI.SetActive(false);
     }
 
     public void ShowPrompt(bool show)
     {
+        if (promptUI == null) return;
+
         promptUI.SetActive(show);
+    }
+
+    // Called once the player has interacted with the object
+    public void OnInteracted()
+    {
+        if (promptUI != null)
+        {
+            Destroy(promptUI);
+            promptUI = null;
+        }
     }
 }
