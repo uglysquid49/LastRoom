@@ -44,6 +44,7 @@ public class FlashOnTouch : MonoBehaviour
         // Show image
         if (flashImage != null)
             flashImage.gameObject.SetActive(true);
+        Debug.Log("Image Appears");
 
         // Wait for flash duration
         yield return new WaitForSeconds(flashDuration);

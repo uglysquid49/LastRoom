@@ -3,7 +3,6 @@ using UnityEngine.SceneManagement;
 
 public class EnemyControl : MonoBehaviour
 {
-    [SerializeField] GameManager gameManager;
     [SerializeField] string nextScene;
     public GameObject pointA;
     public GameObject pointB;

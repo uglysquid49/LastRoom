@@ -1369,7 +1369,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7efd7cd392680bf44856ba59f5497dcf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameManager: {fileID: 0}
   nextScene: SideRoom2
   pointA: {fileID: 296121766}
   pointB: {fileID: 635584166}
@@ -14703,11 +14702,11 @@ SceneRoots:
   - {fileID: 1249216712}
   - {fileID: 1783226217}
   - {fileID: 1350599266}
+  - {fileID: 1132659912}
   - {fileID: 1659669841}
   - {fileID: 389063847}
   - {fileID: 362632857}
   - {fileID: 1313619527}
-  - {fileID: 1132659912}
   - {fileID: 296121767}
   - {fileID: 635584167}
   - {fileID: 1605559812}

@@ -61,6 +61,7 @@ public class ItemCollected : MonoBehaviour, IInteractable
         }
     }
 
+
     private IEnumerator HideUIAndDestroy()
     {
         yield return new WaitForSeconds(displayTime);

@@ -2,7 +2,7 @@ using System.Collections;
 using UnityEngine;
 using TMPro;
 
-public class NPCDialogue : MonoBehaviour
+public class NPCDialogue : MonoBehaviour, IInteractable
 {
     [Header("Dialogue Settings")]
     [TextArea(2, 5)]
@@ -51,7 +51,7 @@ public class NPCDialogue : MonoBehaviour
         }
     }
 
-    void Update()
+    public void Interact()
     {
         if (isPlayerNear && Input.GetKeyDown(KeyCode.E))
         {
