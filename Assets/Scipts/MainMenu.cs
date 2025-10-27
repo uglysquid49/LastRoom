@@ -10,6 +10,7 @@ public void StartGame()
 
     public void ExitGame()
     {
-
+        Application.Quit();
+        Debug.Log("Exit Game");
     }
 }
